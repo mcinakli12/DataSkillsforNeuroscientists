@@ -68,9 +68,17 @@ def create_nwb_file(original_experiment_id):
     ) = load_mat_file(mat_file)
 
     recorded_data = {
-        "Wheel speed": (speed, "Locomotion speed on treadmill (Loco)", '???'),
-        "Whisker Motion Index": (whisker_motion_index, "Normalised whisker motion index (WMI)", 'dimensionless'),
-        "State": (state, "Binary state specifying active period (=1) with locomotion or whisking or quiet wakeful state (0)", 'dimensionless'),
+        "Wheel speed": (speed, "Locomotion speed on treadmill (Loco)", "???"),
+        "Whisker Motion Index": (
+            whisker_motion_index,
+            "Normalised whisker motion index (WMI)",
+            "dimensionless",
+        ),
+        "State": (
+            state,
+            "Binary state specifying active period (=1) with locomotion or whisking or quiet wakeful state (0)",
+            "dimensionless",
+        ),
     }
 
     for key, info in recorded_data.items():
@@ -79,7 +87,11 @@ def create_nwb_file(original_experiment_id):
         unit = info[2]
         print(f"Adding recorded data: {key} with shape {value.shape}")
         ts = pynwb.TimeSeries(
-            name=key, data=value[1], unit=unit, timestamps=value[0] / 1000, description=description
+            name=key,
+            data=value[1],
+            unit=unit,
+            timestamps=value[0] / 1000,
+            description=description,
         )
         nwbfile.add_acquisition(ts)
 
@@ -92,7 +104,11 @@ def create_nwb_file(original_experiment_id):
         timestamps = [t for t in neuron_times[i] / 1000]  # Convert to seconds
 
         ts = pynwb.TimeSeries(
-            "ROI %i fluorescence" % neuron_id, data, "seconds", timestamps=timestamps, description=imaging_info
+            "ROI %i fluorescence" % neuron_id,
+            data,
+            "seconds",
+            timestamps=timestamps,
+            description=imaging_info,
         )
 
         nwbfile.add_acquisition(ts)
