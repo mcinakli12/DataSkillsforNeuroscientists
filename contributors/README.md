@@ -10,5 +10,6 @@
 8) Sophia Kim
 9) Adrienne Chen 
 10) Maria macadrai
-11) Jim Zhao
-12)
+11) Alexey Martynenko
+12) Jieun Yum 
+13) Jim Zhao
